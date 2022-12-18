@@ -69,13 +69,6 @@ function onClick () {
             cover
           ></v-carousel-item>
         </v-carousel>
-         <v-text-field
-          v-model="name"
-          :counter="10"
-          :rules="nameRules"
-          label="Name"
-          required
-        ></v-text-field>
         <v-row dense>
           <v-col
             v-for="n in 4"
