@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { invoke } from '@tauri-apps/api'
 
 const theme = ref('light')
 const drawer = ref(true)
@@ -21,6 +22,15 @@ const items = ref([
     value: 'buzz',
   },
 ])
+const content = ref("");
+
+function handleSubmit() {
+  invoke('greet', { name: 'World' })
+  // `invoke` returns a Promise
+  .then((response) => {
+    content.value = response;
+  })
+}
 
 function onClick () {
   theme.value = theme.value === 'light' ? 'dark' : 'light'
@@ -55,6 +65,10 @@ function onClick () {
     </v-navigation-drawer>
     <v-main>
       <v-container fluid>
+        <v-form>
+          <v-btn @click="handleSubmit">提交</v-btn>
+          <span>{{ content }}</span>
+        </v-form>
         <v-carousel>
           <v-carousel-item
             src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
